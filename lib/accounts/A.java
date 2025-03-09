@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
         final decodedToken = JwtDecoder.decode(TokenHandler().getToken());
 
         String? role = decodedToken[
-        'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+            'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
 
         if (!mounted) return;
 
@@ -65,13 +65,13 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const AdminMainPage()),
-                (Route<dynamic> route) => false,
+            (Route<dynamic> route) => false,
           );
         } else if (role == "User") {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const UsersMainPage()),
-                (Route<dynamic> route) => false,
+            (Route<dynamic> route) => false,
           );
         } else {
           Navigator.of(context).push(

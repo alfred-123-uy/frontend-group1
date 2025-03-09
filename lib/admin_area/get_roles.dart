@@ -52,7 +52,7 @@ class _GetRolesState extends State<GetRoles> {
         context: context,
         statusCode: result.statusCode,
         description: error,
-        color: Colors.green,
+        color: Colors.blue,
       );
     }
   }
@@ -79,7 +79,7 @@ class _GetRolesState extends State<GetRoles> {
         context: context,
         statusCode: result.statusCode,
         description: error,
-        color: Colors.green,
+        color: Colors.blue,
       );
     }
   }

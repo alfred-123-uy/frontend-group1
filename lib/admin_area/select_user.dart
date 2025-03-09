@@ -52,7 +52,7 @@ class _SelectUserState extends State<SelectUser> {
         context: context,
         statusCode: result.statusCode,
         description: error,
-        color: Colors.green,
+        color: Colors.blue,
       );
     }
   }

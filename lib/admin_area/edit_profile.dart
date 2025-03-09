@@ -66,7 +66,7 @@ class _EditProfileState extends State<EditProfile> {
         context: context,
         statusCode: result.statusCode,
         description: error,
-        color: Colors.green,
+        color: Colors.blue,
       );
     }
   }
@@ -98,7 +98,7 @@ class _EditProfileState extends State<EditProfile> {
           context: context,
           statusCode: result.statusCode,
           description: error,
-          color: Colors.green,
+          color: Colors.blue,
         );
       }
     }
@@ -111,39 +111,51 @@ class _EditProfileState extends State<EditProfile> {
         title: "Admin Info",
         color: AppColors.adminPage,
       ),
-      body: Column(
+      body: Stack(
         children: [
-          const SizedBox(height: 20),
-          const Text(
-            "User Details",
-            style: TextStyle(
-              color: Color.fromRGBO(56, 56, 56, .9),
-              fontWeight: FontWeight.bold,
+          // Background Image
+          Positioned.fill(
+            child: Image.asset(
+              'Bp/BackgroundP3.jpg', // Ensure the path is correct
+              fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(height: 20),
-          Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  emailTextField(
-                      emailController: _emailController, readOnly: true),
-                  const SizedBox(height: 20),
-                  phoneNumberField(
-                      phoneNumberController: _phoneNumberController),
-                  const SizedBox(height: 20),
-                  submitButton(
-                    context: context,
-                    backgroundColor: AppColors.adminPage,
-                    textColor: Colors.white,
-                    title: "Update",
-                    method: submitForm,
-                  ),
-                ],
+          Column(
+            children: [
+              const SizedBox(height: 20),
+              const Text(
+                "User Details",
+                style: TextStyle(
+                  color: Colors.white, // Ensure visibility
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
-            ),
+              const SizedBox(height: 20),
+              Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      emailTextField(
+                          emailController: _emailController, readOnly: true),
+                      const SizedBox(height: 20),
+                      phoneNumberField(
+                          phoneNumberController: _phoneNumberController),
+                      const SizedBox(height: 20),
+                      submitButton(
+                        context: context,
+                        backgroundColor: AppColors.adminPage,
+                        textColor: Colors.white,
+                        title: "Update",
+                        method: submitForm,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

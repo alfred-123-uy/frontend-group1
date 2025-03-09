@@ -24,7 +24,7 @@ class ChangeAdminPassword extends StatefulWidget {
 class _ChangeAdminPasswordState extends State<ChangeAdminPassword> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _currentPasswordController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -69,7 +69,7 @@ class _ChangeAdminPasswordState extends State<ChangeAdminPassword> {
           MaterialPageRoute(
             builder: (context) => const LoginPage(),
           ),
-          (Route<dynamic> route) => false,
+              (Route<dynamic> route) => false,
         );
       } else {
         var errorBody = jsonDecode(result.body);
@@ -81,7 +81,7 @@ class _ChangeAdminPasswordState extends State<ChangeAdminPassword> {
           context: context,
           statusCode: result.statusCode,
           description: error,
-          color: Colors.green,
+          color: Colors.blue,
         );
       }
     }
@@ -94,45 +94,57 @@ class _ChangeAdminPasswordState extends State<ChangeAdminPassword> {
         title: "Change Admin Password",
         color: AppColors.adminPage,
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
+      body: Stack(
         children: [
-          const SizedBox(height: 20),
-          const Text(
-            "Enter Admin Details",
-            style: TextStyle(
-              color: Color.fromRGBO(56, 56, 56, .9),
-              fontWeight: FontWeight.bold,
+          // Background Image
+          Positioned.fill(
+            child: Image.asset(
+              'Bp/BackgroundP3.jpg', // Ensure the path is correct
+              fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(height: 20),
-          Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  emailTextField(
-                      emailController: _emailController, readOnly: true),
-                  const SizedBox(height: 20),
-                  passwordTextField(
-                      passwordController: _currentPasswordController,
-                      label: "Current Password"),
-                  const SizedBox(height: 20),
-                  passwordTextField(
-                      passwordController: _newPasswordController,
-                      label: "New Password"),
-                  const SizedBox(height: 20),
-                  submitButton(
-                    context: context,
-                    backgroundColor: AppColors.adminPage,
-                    textColor: Colors.white,
-                    title: "Update Password",
-                    method: submitForm,
-                  ),
-                ],
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 20),
+              const Text(
+                "Enter Admin Details",
+                style: TextStyle(
+                  color: Colors.white, // Ensures visibility
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
-            ),
+              const SizedBox(height: 20),
+              Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      emailTextField(
+                          emailController: _emailController, readOnly: true),
+                      const SizedBox(height: 20),
+                      passwordTextField(
+                          passwordController: _currentPasswordController,
+                          label: "Current Password"),
+                      const SizedBox(height: 20),
+                      passwordTextField(
+                          passwordController: _newPasswordController,
+                          label: "New Password"),
+                      const SizedBox(height: 20),
+                      submitButton(
+                        context: context,
+                        backgroundColor: AppColors.adminPage,
+                        textColor: Colors.white,
+                        title: "Update Password",
+                        method: submitForm,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

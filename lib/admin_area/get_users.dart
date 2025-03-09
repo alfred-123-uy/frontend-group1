@@ -53,7 +53,7 @@ class _GetUsersState extends State<GetUsers> {
         context: context,
         statusCode: result.statusCode,
         description: error,
-        color: Colors.green,
+        color: Colors.blue,
       );
     }
   }
@@ -80,7 +80,7 @@ class _GetUsersState extends State<GetUsers> {
         context: context,
         statusCode: result.statusCode,
         description: error,
-        color: Colors.green,
+        color: Colors.blue,
       );
     }
   }

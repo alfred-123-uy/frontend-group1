@@ -36,7 +36,7 @@ class _AddRoleState extends State<AddRole> {
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer ${TokenHandler().getToken()}',
         },
-        body: jsonEncode(_roleController.text),
+        body: jsonEncode({'role': _roleController.text}), // Fixed JSON structure
       );
 
       if (result.statusCode >= 200 && result.statusCode <= 299) {
@@ -52,7 +52,7 @@ class _AddRoleState extends State<AddRole> {
           context: context,
           statusCode: result.statusCode,
           description: error,
-          color: Colors.green,
+          color: Colors.blue,
         );
       }
     }
@@ -61,60 +61,79 @@ class _AddRoleState extends State<AddRole> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const CustomAppbar(
-          title: "Add New Role",
-          color: AppColors.adminPage,
-        ),
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 20),
-            const Text(
-              "Enter Role",
-              style: TextStyle(
-                color: Color.fromRGBO(56, 56, 56, .9),
-                fontWeight: FontWeight.bold,
-              ),
+      appBar: const CustomAppbar(
+        title: "Add New Role",
+        color: AppColors.adminPage,
+      ),
+      body: Stack(
+        children: [
+          // Background Image
+          Positioned.fill(
+            child: Image.asset(
+              'Bp/BackgroundP3.jpg', // Ensure the path is correct
+              fit: BoxFit.cover,
             ),
-            const SizedBox(height: 20),
-            Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: _roleController,
-                      decoration: InputDecoration(
-                        labelText: 'Role',
-                        floatingLabelStyle:
-                            const TextStyle(color: AppColors.adminPage),
-                        border: BorderStyles.border,
-                        focusedBorder: BorderStyles.focusedBorder,
-                        errorBorder: BorderStyles.errorBorder,
-                        focusedErrorBorder: BorderStyles.focusedErrorBorder,
+          ),
+          Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 20),
+                  const Text(
+                    "Enter Role",
+                    style: TextStyle(
+                      color: Colors.white, // Adjust for better contrast
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            controller: _roleController,
+                            decoration: InputDecoration(
+                              labelText: 'Role',
+                              labelStyle: const TextStyle(color: Colors.white), // Updated for visibility
+                              floatingLabelStyle:
+                              const TextStyle(color: AppColors.adminPage),
+                              border: BorderStyles.border,
+                              focusedBorder: BorderStyles.focusedBorder,
+                              errorBorder: BorderStyles.errorBorder,
+                              focusedErrorBorder: BorderStyles.focusedErrorBorder,
+                            ),
+                            style: const TextStyle(color: Colors.white), // Text color
+                            keyboardType: TextInputType.text,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Enter role name';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          submitButton(
+                            context: context,
+                            backgroundColor: AppColors.adminPage,
+                            textColor: Colors.white,
+                            title: "Add Role",
+                            method: submitForm,
+                          ),
+                        ],
                       ),
-                      keyboardType: TextInputType.text,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Enter role name';
-                        }
-                        return null;
-                      },
                     ),
-                    const SizedBox(height: 20),
-                    submitButton(
-                      context: context,
-                      backgroundColor: AppColors.adminPage,
-                      textColor: Colors.white,
-                      title: "Add Role",
-                      method: submitForm,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }

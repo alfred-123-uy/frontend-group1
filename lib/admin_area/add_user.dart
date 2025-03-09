@@ -69,7 +69,7 @@ class _AddUserState extends State<AddUser> {
           context: context,
           statusCode: result.statusCode,
           description: error,
-          color: Colors.green,
+          color: Colors.blue,
         );
       }
     }
@@ -82,37 +82,52 @@ class _AddUserState extends State<AddUser> {
         title: "Add New User",
         color: AppColors.adminPage,
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
+      body: Stack(
         children: [
-          const SizedBox(height: 20),
-          const Text(
-            "Enter User Details",
-            style: TextStyle(
-              color: Color.fromRGBO(56, 56, 56, .9),
-              fontWeight: FontWeight.bold,
+          // Background Image
+          Positioned.fill(
+            child: Image.asset(
+              'Bp/BackgroundP3.jpg', // Make sure the image path is correct
+              fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(height: 20),
-          Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+          Center(
+            child: SingleChildScrollView(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  emailTextField(emailController: _emailController),
                   const SizedBox(height: 20),
-                  passwordTextField(passwordController: _passwordController),
+                  const Text(
+                    "Enter User Details",
+                    style: TextStyle(
+                      color: Colors.white, // Adjust for visibility
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
                   const SizedBox(height: 20),
-                  phoneNumberField(
-                      phoneNumberController: _phoneNumberController),
-                  const SizedBox(height: 20),
-                  submitButton(
-                    context: context,
-                    backgroundColor: Colors.green,
-                    textColor: Colors.white,
-                    title: "Add New User",
-                    method: submitForm,
+                  Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        children: [
+                          emailTextField(emailController: _emailController),
+                          const SizedBox(height: 20),
+                          passwordTextField(passwordController: _passwordController),
+                          const SizedBox(height: 20),
+                          phoneNumberField(phoneNumberController: _phoneNumberController),
+                          const SizedBox(height: 20),
+                          submitButton(
+                            context: context,
+                            backgroundColor: Colors.blue,
+                            textColor: Colors.white,
+                            title: "Add New User",
+                            method: submitForm,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

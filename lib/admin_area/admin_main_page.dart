@@ -139,7 +139,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
               MaterialPageRoute(
                 builder: (context) => const LoginPage(),
               ),
-              (Route<dynamic> route) => false,
+                  (Route<dynamic> route) => false,
             );
           },
         },
@@ -152,33 +152,52 @@ class _AdminMainPageState extends State<AdminMainPage> {
     return Scaffold(
       appBar: const CustomAppbar(
           title: "Admin Section", color: AppColors.adminPage),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25),
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            const Text("Admin Methods"),
-            const SizedBox(height: 20),
-            ListView.builder(
-              itemCount: buttons.length,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  children: [
-                    submitButton(
-                      context: context,
-                      backgroundColor: buttons[index]['backgroundColor'],
-                      textColor: buttons[index]['textColor'],
-                      title: buttons[index]['title'],
-                      method: buttons[index]['onPressed'],
-                    ),
-                    const SizedBox(height: 10),
-                  ],
-                );
-              },
+      body: Stack(
+        children: [
+          // Background Image
+          Positioned.fill(
+            child: Image.asset(
+              'Bp/BackgroundP3.jpg', // Adjust path if necessary
+              fit: BoxFit.cover,
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                const Text(
+                  "Admin Methods",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white, // Ensuring text is visible
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: buttons.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: [
+                          submitButton(
+                            context: context,
+                            backgroundColor: buttons[index]['backgroundColor'],
+                            textColor: buttons[index]['textColor'],
+                            title: buttons[index]['title'],
+                            method: buttons[index]['onPressed'],
+                          ),
+                          const SizedBox(height: 10),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -67,7 +67,7 @@ class _AssignRoleState extends State<AssignRole> {
         context: context,
         statusCode: result.statusCode,
         description: error,
-        color: Colors.green,
+        color: Colors.blue,
       );
     }
   }
@@ -97,7 +97,7 @@ class _AssignRoleState extends State<AssignRole> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const AdminMainPage()),
-          (Route<dynamic> route) => false,
+              (Route<dynamic> route) => false,
         );
       } else {
         var errorBody = jsonDecode(result.body);
@@ -109,7 +109,7 @@ class _AssignRoleState extends State<AssignRole> {
           context: context,
           statusCode: result.statusCode,
           description: error,
-          color: Colors.green,
+          color: Colors.blue,
         );
       }
     }
@@ -122,51 +122,73 @@ class _AssignRoleState extends State<AssignRole> {
         title: "Assign Role",
         color: AppColors.adminPage,
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
+      body: Stack(
         children: [
-          const SizedBox(height: 20),
-          const Text("Select user to proceed"),
-          const SizedBox(height: 20),
-          Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  emailTextField(
-                      emailController: _emailController, readOnly: true),
-                  const SizedBox(height: 20),
-                  DropdownButtonFormField<String>(
-                    decoration:
-                        BorderStyles.roleDropdownButtonFormFieldInputDecoration,
-                    value: _selectedItem,
-                    isExpanded: true,
-                    items: roles.map((role) {
-                      return DropdownMenuItem<String>(
-                        value: role.name,
-                        child: Text(role.name),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        _selectedItem = newValue;
-                      });
-                    },
-                    validator: (value) =>
-                        value == null ? 'Please select a role' : null,
-                  ),
-                  const SizedBox(height: 20),
-                  submitButton(
-                    context: context,
-                    backgroundColor: AppColors.adminPage,
-                    textColor: Colors.white,
-                    title: "Assign Role",
-                    method: submitForm,
-                  ),
-                ],
-              ),
+          // Background Image
+          Positioned.fill(
+            child: Image.asset(
+              'Bp/BackgroundP3.jpg', // Ensure the image path is correct
+              fit: BoxFit.cover,
             ),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 20),
+              const Text(
+                "Select user to proceed",
+                style: TextStyle(
+                  color: Colors.white, // Ensures visibility on the background
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      emailTextField(
+                          emailController: _emailController, readOnly: true),
+                      const SizedBox(height: 20),
+                      DropdownButtonFormField<String>(
+                        decoration: BorderStyles
+                            .roleDropdownButtonFormFieldInputDecoration,
+                        value: _selectedItem,
+                        isExpanded: true,
+                        dropdownColor: Colors.white.withOpacity(0.9), // Ensures readability
+                        items: roles.map((role) {
+                          return DropdownMenuItem<String>(
+                            value: role.name,
+                            child: Text(
+                              role.name,
+                              style: const TextStyle(color: Colors.black), // Ensures text visibility
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _selectedItem = newValue;
+                          });
+                        },
+                        validator: (value) =>
+                        value == null ? 'Please select a role' : null,
+                      ),
+                      const SizedBox(height: 20),
+                      submitButton(
+                        context: context,
+                        backgroundColor: AppColors.adminPage,
+                        textColor: Colors.white,
+                        title: "Assign Role",
+                        method: submitForm,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
